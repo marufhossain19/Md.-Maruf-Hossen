@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Md. Maruf Hossen — Software Engineer, Researcher & Flutter Developer</title>
+  <meta name="description"
+    content="Explore the interactive cinematic portfolio of Md. Maruf Hossen — Computer Science Engineer, AI Researcher, and Flutter Developer.">
+  <meta name="author" content="Md. Maruf Hossen">
+  <meta name="theme-color" content="#5EEAD4">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css">
+</head>
+
+<body>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Cursor Glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Global Wave Background -->
+  <canvas id="waveCanvas"></canvas>
+
+  <!-- ====================== NAVIGATION ====================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-pill" id="navPill">
+      <a href="#chapter-builder" class="nav-pill-item active" data-section="chapter-builder">
+        <svg class="nav-pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+        </svg>
+        <span class="nav-text">WORK</span>
+      </a>
+      <a href="#chapter-beginning" class="nav-pill-item" data-section="chapter-beginning">
+        <svg class="nav-pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"></path>
+        </svg>
+        <span class="nav-text">STORY</span>
+      </a>
+      <a href="#skills-section" class="nav-pill-item" data-section="skills-section">
+        <svg class="nav-pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span class="nav-text">SKILLS</span>
+      </a>
+      <a href="#contact-section" class="nav-pill-item" data-section="contact-section">
+        <svg class="nav-pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span class="nav-text">CONTACT</span>
+      </a>
+    </div>
+  </nav>
+  <div class="nav-mobile-toggle" id="navToggle"><span></span><span></span><span></span></div>
+
+  <!-- Chapter Dots -->
+  <div class="chapter-nav" id="chapterNav">
+    <div class="chapter-dot" data-target="hero" data-label="Home"></div>
+    <div class="chapter-dot" data-target="chapter-beginning" data-label="Beginning"></div>
+    <div class="chapter-dot" data-target="chapter-foundation" data-label="Foundation"></div>
+    <div class="chapter-dot" data-target="chapter-university" data-label="University"></div>
+    <div class="chapter-dot" data-target="chapter-builder" data-label="Projects"></div>
+    <div class="chapter-dot" data-target="chapter-researcher" data-label="Research"></div>
+    <div class="chapter-dot" data-target="chapter-freelancer" data-label="Freelancer"></div>
+    <div class="chapter-dot" data-target="chapter-future" data-label="Future"></div>
+  </div>
+
+  <!-- ====================== HERO ====================== -->
+  <section class="section hero" id="hero">
+    <div class="hero-content">
+
+      <h1 class="hero-name reveal">Hi, I'm <span class="accent">Maruf.</span></h1>
+      <p class="hero-tagline reveal">Computer Science Student</p>
+      <div class="hero-typing-wrapper reveal">
+        <span id="typingText"></span><span class="typing-cursor"></span>
+      </div>
+      <div class="hero-cta-row reveal" style="display:flex; justify-content:center; gap: 1rem; margin-top: 2rem;">
+        <a href="#chapter-builder" class="btn-see-work">↓ SEE THE WORK</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CHAPTER 01 — THE BEGINNING ====================== -->
+  <section class="section" id="chapter-beginning">
+    <div class="section-inner">
+      <span class="chapter-label reveal">Chapter 01</span>
+      <h2 class="chapter-title reveal">The Beginning</h2>
+      <p class="chapter-subtitle reveal">Every great journey starts with a single step. Mine started in a small school
+        in Kaliakair, Gazipur — where discipline, curiosity, and excellence were forged.</p>
+      <div class="two-col"
+        style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-top:var(--space-3xl);align-items:center;">
+        <div class="reveal-left">
+          <div class="milestone-card">
+            <div class="milestone-label">Secondary School Certificate</div>
+            <div class="milestone-gpa">5.00</div>
+            <div class="milestone-label" style="margin-top:var(--space-sm);">GPA out of 5.00</div>
+            <div class="milestone-institution">Mouchak Ideal Public School · 2019</div>
+            <div class="milestone-badge badge-golden">🏆 Golden GPA</div>
+          </div>
+        </div>
+        <div class="reveal-right" style="display:flex;flex-direction:column;gap:var(--space-lg);">
+          <div class="glass-card">
+            <h4
+              style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1.05rem;color:var(--text-white);">
+              📚 Science Background</h4>
+            <p style="color:var(--text-secondary);font-size:0.875rem;line-height:1.7;">Strong foundation in Mathematics,
+              Physics, and Chemistry. Stood 3rd in PSC Examination in Kaliakair Upazila — one of the earliest signs of
+              academic excellence.</p>
+          </div>
+          <div class="glass-card">
+            <h4
+              style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1.05rem;color:var(--text-white);">
+              🌟 Early Achievement</h4>
+            <p style="color:var(--text-secondary);font-size:0.875rem;line-height:1.7;">A perfect score — setting the
+              stage for everything that would follow. The moment the dream of becoming an engineer was born.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CHAPTER 02 — THE FOUNDATION ====================== -->
+  <section class="section" id="chapter-foundation">
+    <div class="floating-symbols"><span class="floating-symbol">⚛️</span><span class="floating-symbol">∑</span><span
+        class="floating-symbol">∫</span><span class="floating-symbol">π</span><span
+        class="floating-symbol">Δ</span><span class="floating-symbol">∞</span></div>
+    <div class="section-inner">
+      <span class="chapter-label reveal">Chapter 02</span>
+      <h2 class="chapter-title reveal">The Foundation</h2>
+      <p class="chapter-subtitle reveal">Higher Secondary education deepened the roots. A golden result once again —
+        this time with the clarity to pursue Computer Science.</p>
+      <div class="two-col"
+        style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-top:var(--space-3xl);align-items:center;">
+        <div class="reveal-left" style="display:flex;flex-direction:column;gap:var(--space-lg);">
+          <div class="glass-card">
+            <h4
+              style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1.05rem;color:var(--text-white);">
+              🔬 Science Stream</h4>
+            <p style="color:var(--text-secondary);font-size:0.875rem;line-height:1.7;">Studied Physics, Chemistry,
+              Mathematics at M.E.H Arif College. Built a rigorous analytical mindset that became the cornerstone of a CS
+              career.</p>
+          </div>
+          <div class="glass-card">
+            <h4
+              style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1.05rem;color:var(--text-white);">
+              🎯 Vision Formed</h4>
+            <p style="color:var(--text-secondary);font-size:0.875rem;line-height:1.7;">By the end of HSC, the path was
+              clear — Computer Science and Engineering. Problem-solving ability and technological curiosity pointed one
+              direction.</p>
+          </div>
+        </div>
+        <div class="reveal-right">
+          <div class="milestone-card">
+            <div class="milestone-label">Higher Secondary Certificate</div>
+            <div class="milestone-gpa">5.00</div>
+            <div class="milestone-label" style="margin-top:var(--space-sm);">GPA out of 5.00</div>
+            <div class="milestone-institution">M.E.H Arif College · 2021</div>
+            <div class="milestone-badge badge-golden">🏆 Golden GPA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CHAPTER 03 — UNIVERSITY ====================== -->
+  <section class="section" id="chapter-university">
+    <div class="section-inner">
+      <span class="chapter-label reveal">Chapter 03</span>
+      <h2 class="chapter-title reveal">The University Journey</h2>
+      <p class="chapter-subtitle reveal">Where knowledge meets passion. Daffodil International University became the
+        launchpad for an engineer, researcher, and builder.</p>
+      <div class="two-col"
+        style="display:grid;grid-template-columns:1fr auto;gap:var(--space-3xl);margin-top:var(--space-3xl);align-items:start;">
+        <div class="timeline" id="universityTimeline">
+          <div class="timeline-line-fill" id="timelineFill"></div>
+          <div class="timeline-item reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2022</div>
+            <div class="timeline-content">
+              <h4><svg style="display:inline; margin-right:4px; vertical-align:text-bottom;" viewBox="0 0 24 24"
+                  width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg> Joined Daffodil International University</h4>
+              <p>Enrolled in BSc in Computer Science & Engineering. A new chapter filled with code, algorithms, and
+                ambition.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2022 — 2023</div>
+            <div class="timeline-content">
+              <h4><svg style="display:inline; margin-right:4px; vertical-align:text-bottom;" viewBox="0 0 24 24"
+                  width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg> Building the Foundation</h4>
+              <p>Mastered Data Structures, OOP, Database Management, and Web Development. Started building real projects
+                alongside coursework.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Fall 2023</div>
+            <div class="timeline-content">
+              <h4><svg style="display:inline; margin-right:4px; vertical-align:text-bottom;" viewBox="0 0 24 24"
+                  width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg> Dean's List Award</h4>
+              <p>Recognized for outstanding academic performance. First of two consecutive Dean's List achievements at
+                DIU.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2024</div>
+            <div class="timeline-content">
+              <h4><svg style="display:inline; margin-right:4px; vertical-align:text-bottom;" viewBox="0 0 24 24"
+                  width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg> Skills Acceleration</h4>
+              <p>Deep-dived into Flutter, AI/ML concepts, and data mining. Started building full-scale applications and
+                research projects.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Fall 2024</div>
+            <div class="timeline-content">
+              <h4><svg style="display:inline; margin-right:4px; vertical-align:text-bottom;" viewBox="0 0 24 24"
+                  width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg> Dean's List — Again</h4>
+              <p>Second consecutive Dean's List recognition. Maintained excellence while taking on complex projects and
+                research work.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Present</div>
+            <div class="timeline-content">
+              <h4><svg style="display:inline; margin-right:4px; vertical-align:text-bottom;" viewBox="0 0 24 24"
+                  width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg> Thesis & Beyond</h4>
+              <p>Currently working on deepfake detection research using multi-domain deep learning approaches.</p>
+            </div>
+          </div>
+        </div>
+        <div class="reveal-right" style="position:sticky;top:120px;">
+          <div class="milestone-card" style="min-width:220px;">
+            <div class="milestone-label">Current CGPA</div>
+            <div class="milestone-gpa" id="cgpaCounter">3.90</div>
+            <div class="milestone-label" style="margin-top:var(--space-sm);">out of 4.00</div>
+            <div class="milestone-institution">Daffodil International University</div>
+            <div class="milestone-badge badge-golden"><svg
+                style="display:inline; margin-right:4px; vertical-align:text-bottom;" viewBox="0 0 24 24" width="16"
+                height="16" stroke="currentColor" stroke-width="1.5" fill="none">
+                <circle cx="12" cy="8" r="7"></circle>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+              </svg> Dean's List ×2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CHAPTER 04 — THE BUILDER ERA ====================== -->
+  <section class="section" id="chapter-builder">
+    <div class="section-inner">
+      <span class="chapter-label reveal">Chapter 04</span>
+      <h2 class="chapter-title reveal">Academic Projects</h2>
+      <p class="chapter-subtitle reveal">Ideas turned into reality. Each project solving real problems with real code.
+      </p>
+      <div class="project-galaxy" style="margin-top:var(--space-3xl);">
+        <div class="project-card glass-card-tilt" data-project="bus-tracking">
+          <div class="project-icon"><svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg></div>
+          <div class="project-type">Mobile Application</div>
+          <h3>Bus Tracking App</h3>
+          <p>A real-time DIU campus bus tracking mobile app developed using Flutter, improving commute for students.</p>
+          <div class="project-tech-stack"><span class="tech-pill">Flutter</span><span class="tech-pill">Dart</span><span
+              class="tech-pill">Maps API</span><span class="tech-pill">Real-time</span></div>
+        </div>
+        <div class="project-card glass-card-tilt" data-project="expense-tracker">
+          <div class="project-icon"><svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+              <circle cx="12" cy="12" r="2"></circle>
+              <path d="M6 12h.01M18 12h.01"></path>
+            </svg></div>
+          <div class="project-type">Mobile Application</div>
+          <h3>Daily Expense Tracker</h3>
+          <p>Tracks daily expenses with family invitation, weekly graphs, monthly heatmaps, and alert notifications.</p>
+          <div class="project-tech-stack"><span class="tech-pill">Flutter</span><span class="tech-pill">Dart</span><span
+              class="tech-pill">Charts</span><span class="tech-pill">Notifications</span></div>
+        </div>
+        <div class="project-card glass-card-tilt" data-project="health-record">
+          <div class="project-icon"><svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg></div>
+          <div class="project-type">Web Application</div>
+          <h3>Health Record System</h3>
+          <p>A web-based app for managing and storing patient health records digitally, improving accessibility.</p>
+          <div class="project-tech-stack"><span class="tech-pill">HTML</span><span class="tech-pill">CSS</span><span
+              class="tech-pill">JavaScript</span><span class="tech-pill">SQL</span></div>
+        </div>
+        <div class="project-card glass-card-tilt" data-project="task-manager">
+          <div class="project-icon"><svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4"></path>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg></div>
+          <div class="project-type">Web Application</div>
+          <h3>Task Manager</h3>
+          <p>A productivity app for creating, assigning, and tracking tasks with deadlines and priority management.</p>
+          <div class="project-tech-stack"><span class="tech-pill">HTML</span><span class="tech-pill">CSS</span><span
+              class="tech-pill">JavaScript</span><span class="tech-pill">Backend</span></div>
+        </div>
+        <div class="project-card glass-card-tilt" data-project="air-quality">
+          <div class="project-icon"><svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2">
+              </path>
+            </svg></div>
+          <div class="project-type">Embedded System + Web</div>
+          <h3>Air Quality Monitoring</h3>
+          <p>Built using embedded systems with a real-time web dashboard for monitoring air quality and pollution.</p>
+          <div class="project-tech-stack"><span class="tech-pill">Embedded</span><span class="tech-pill">IoT</span><span
+              class="tech-pill">Dashboard</span><span class="tech-pill">Sensors</span></div>
+        </div>
+        <div class="project-card glass-card-tilt" data-project="data-mining">
+          <div class="project-icon"><svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg></div>
+          <div class="project-type">Research</div>
+          <h3>Data Mining Research</h3>
+          <p>Analyzed the correlation among student club participation and its influence on academic success.</p>
+          <div class="project-tech-stack"><span class="tech-pill">Python</span><span class="tech-pill">Data
+              Mining</span><span class="tech-pill">Analysis</span><span class="tech-pill">ML</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CHAPTER 05 — THE RESEARCHER ====================== -->
+  <section class="section" id="chapter-researcher">
+    <div class="section-inner">
+      <span class="chapter-label reveal">Chapter 05</span>
+      <h2 class="chapter-title reveal">The Researcher</h2>
+      <p class="chapter-subtitle reveal">Where curiosity meets cutting-edge AI. Exploring deep learning to solve
+        pressing challenges.</p>
+      <div class="research-card" style="margin-top:var(--space-3xl);">
+        <div style="display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl);">
+          <span style="font-size:2rem;">🧠</span>
+          <div>
+            <div
+              style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent-muted);text-transform:uppercase;letter-spacing:0.15em;">
+              Ongoing Thesis</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);">BSc in CSE · Daffodil International University</div>
+          </div>
+        </div>
+        <h3 class="research-title">"Robust Detection of AI-Generated Deepfake Images via Multi-Domain Deep Learning
+          Approaches"</h3>
+        <div class="research-objective">
+          <p>This project aims to design a robust deep learning-based system capable of detecting AI-generated deepfake
+            images. The proposed system combines spatial and frequency-domain features through an ensemble of CNNs and
+            Grad-CAM explainability to detect subtle inconsistencies, achieving higher detection accuracy.</p>
+        </div>
+        <div class="research-keywords"><span class="keyword-tag">Deep Learning</span><span
+            class="keyword-tag">CNN</span><span class="keyword-tag">Deepfake Detection</span><span
+            class="keyword-tag">Grad-CAM</span><span class="keyword-tag">Spatial Analysis</span><span
+            class="keyword-tag">Frequency Domain</span><span class="keyword-tag">Image Classification</span><span
+            class="keyword-tag">AI Security</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CHAPTER 06 — THE FREELANCER ====================== -->
+  <section class="section" id="chapter-freelancer">
+    <div class="section-inner">
+      <span class="chapter-label reveal">Chapter 06</span>
+      <h2 class="chapter-title reveal">Job Experience</h2>
+      <p class="chapter-subtitle reveal">Beyond academics — stepping into the professional world. Delivering creative
+        work and building real client relationships.</p>
+      <div class="two-col"
+        style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-top:var(--space-3xl);align-items:center;">
+        <div class="reveal-left">
+          <div class="glass-card freelancer-main-card" style="text-align:center;">
+            <div style="margin-bottom:var(--space-md); display:flex; justify-content:center; color: var(--accent);">
+              <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                <path
+                  d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z">
+                </path>
+              </svg>
+            </div>
+            <h3
+              style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:var(--space-sm);color:var(--text-white);">
+              Sound Designer</h3>
+            <div
+              style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-muted);margin-bottom:var(--space-lg);">
+              FREELANCER · 2023</div>
+            <div class="sound-wave-container">
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+              <div class="sound-bar"></div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal-right" style="display:flex;flex-direction:column;gap:var(--space-lg);">
+          <div class="glass-card">
+            <h4
+              style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1rem;color:var(--text-white);">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none"
+                stroke-linecap="round" stroke-linejoin="round"
+                style="vertical-align: middle; margin-right: 4px; color: var(--accent);">
+                <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                <path d="M2 8h20"></path>
+                <path d="M6 4v4"></path>
+                <path d="M10 4v4"></path>
+                <path d="M14 4v4"></path>
+                <path d="M18 4v4"></path>
+              </svg> 4 Projects Delivered
+            </h4>
+            <p style="color:var(--text-secondary);font-size:0.85rem;line-height:1.7;">Responsible for adding sound
+              effects to videos. Delivered on time, maintaining quality standards.</p>
+          </div>
+          <div class="glass-card">
+            <h4
+              style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1rem;color:var(--text-white);">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none"
+                stroke-linecap="round" stroke-linejoin="round"
+                style="vertical-align: middle; margin-right: 4px; color: var(--accent);">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg> Skills Gained
+            </h4>
+            <p style="color:var(--text-secondary);font-size:0.85rem;line-height:1.7;">Developed skills in audio
+              production, client communication, and remote project management.</p>
+          </div>
+          <div class="glass-card">
+            <h4
+              style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1rem;color:var(--text-white);">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none"
+                stroke-linecap="round" stroke-linejoin="round"
+                style="vertical-align: middle; margin-right: 4px; color: var(--accent);">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                </path>
+              </svg> Remote Collaboration
+            </h4>
+            <p style="color:var(--text-secondary);font-size:0.85rem;line-height:1.7;">Managing timelines, communicating
+              with clients across boundaries, and delivering independently.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col"
+      style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-top:var(--space-3xl);align-items:center;">
+      <div class="reveal-left">
+        <div class="glass-card freelancer-main-card" style="text-align:center;">
+          <div style="margin-bottom:var(--space-md); display:flex; justify-content:center;">
+            <!-- Placeholder for Softvence logo. Styling text as fallback if image is missing -->
+            <div style="font-family: serif; font-size: 2.2rem; font-weight: 500; color: #E2E8F0; letter-spacing: -1px;">
+              sof<span style="color: #4CAF50;">t</span>vence
+            </div>
+          </div>
+          <h3
+            style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:var(--space-sm);color:var(--text-white);">
+            Trainee Foreign Communicator</h3>
+          <div
+            style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-muted);margin-bottom:var(--space-xs);">
+            SOFTVENCE ALPHA · 2026</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:var(--space-lg);">A sister concern of
+            Betopia Group</div>
+        </div>
+      </div>
+      <div class="reveal-right" style="display:flex;flex-direction:column;gap:var(--space-lg);">
+        <div class="glass-card">
+          <h4
+            style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1rem;color:var(--text-white);">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none"
+              stroke-linecap="round" stroke-linejoin="round"
+              style="vertical-align: middle; margin-right: 4px; color: var(--accent);">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg> Client Acquisition
+          </h4>
+          <p style="color:var(--text-secondary);font-size:0.85rem;line-height:1.7;">Understanding clients' requirements
+            with strong communication, and convincing them to give us the order.</p>
+        </div>
+        <div class="glass-card">
+          <h4
+            style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1rem;color:var(--text-white);">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none"
+              stroke-linecap="round" stroke-linejoin="round"
+              style="vertical-align: middle; margin-right: 4px; color: var(--accent);">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg> Bridging the Gap
+          </h4>
+          <p style="color:var(--text-secondary);font-size:0.85rem;line-height:1.7;">Working as a bridge between the
+            client and the developer, providing continuous updates to the client.</p>
+        </div>
+        <div class="glass-card">
+          <h4
+            style="font-family:var(--font-display);margin-bottom:var(--space-sm);font-size:1rem;color:var(--text-white);">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="1.5" fill="none"
+              stroke-linecap="round" stroke-linejoin="round"
+              style="vertical-align: middle; margin-right: 4px; color: var(--accent);">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg> Quality Delivery
+          </h4>
+          ney <p style="color:var(--text-secondary);font-size:0.85rem;line-height:1.7;">Ensuring the final delivered
+            project
+            meets and exceeds the client's expectations.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ====================== SKILLS ====================== -->
+  <section class="section" id="skills-section">
+    <div class="section-inner">
+      <span class="chapter-label reveal">Capabilities</span>
+      <h2 class="chapter-title reveal">Skills Universe</h2>
+      <p class="chapter-subtitle reveal">A constellation of technical and soft skills — each one connected, each one
+        growing.</p>
+      <div class="skills-canvas-container reveal-scale"><canvas id="skillsCanvas"></canvas></div>
+
+    </div>
+  </section>
+
+  <!-- ====================== TECH STACK ====================== -->
+  <section class="section" id="tech-section">
+    <div class="section-inner">
+      <span class="chapter-label reveal">Arsenal</span>
+      <h2 class="chapter-title reveal">Tech Stack</h2>
+      <p class="chapter-subtitle reveal">The tools and technologies that power my creations.</p>
+      <div class="tech-wall" style="margin-top:var(--space-3xl); display: grid; grid-template-columns: repeat(6, 1fr);">
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/flutter.svg" alt="Flutter"
+              width="48" height="48" /></span><span class="tech-label">Flutter</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/dart.svg" alt="Dart" width="48"
+              height="48" /></span><span class="tech-label">Dart</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/python.svg" alt="Python"
+              width="48" height="48" /></span><span class="tech-label">Python</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/java.svg" alt="Java" width="48"
+              height="48" /></span><span class="tech-label">Java</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/html.svg" alt="HTML" width="48"
+              height="48" /></span><span class="tech-label">HTML</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/css-alt.svg" alt="CSS"
+              width="48" height="48" /></span><span class="tech-label">CSS</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/mysql new.svg" alt="MySQL"
+              width="48" height="48" /></span><span class="tech-label">MySQL</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/github.svg" alt="Git" width="48"
+              height="48" /></span><span class="tech-label">Git</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/supabase.svg" alt="Supabase"
+              width="48" height="48" /></span><span class="tech-label">Supabase</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/node-js.svg" alt="Node JS"
+              width="48" height="48" /></span><span class="tech-label">Node JS</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/c.svg" alt="C" width="48"
+              height="48" /></span><span class="tech-label">C</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/microsoft-word.svg" alt="Word"
+              width="48" height="48" /></span><span class="tech-label">Word</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/excel.svg" alt="Excel"
+              width="48" height="48" /></span><span class="tech-label">Excel</span></div>
+        <div class="tech-card glass-card-tilt"><span class="tech-icon"><img src="assets/powerpoint.svg" alt="PowerPoint"
+              width="48" height="48" /></span><span class="tech-label">PowerPoint</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== ACHIEVEMENTS ====================== -->
+  <section class="section" id="achievements-section">
+    <div class="section-inner">
+      <span class="chapter-label reveal">Hall of Fame</span>
+      <h2 class="chapter-title reveal">Achievements Vault</h2>
+      <p class="chapter-subtitle reveal">Milestones that mark the journey. Each one a reminder of relentless pursuit of
+        excellence.</p>
+      <div class="achievements-grid" style="margin-top:var(--space-3xl);">
+        <div class="achievement-card glass-card-tilt">
+          <div class="achievement-trophy">🏅</div>
+          <h3>Dean's List Award</h3>
+          <p>Daffodil International University — Fall 2024</p>
+        </div>
+        <div class="achievement-card glass-card-tilt">
+          <div class="achievement-trophy">🏅</div>
+          <h3>Dean's List Award</h3>
+          <p>Daffodil International University — Fall 2023</p>
+        </div>
+        <div class="achievement-card glass-card-tilt">
+          <div class="achievement-trophy">🥉</div>
+          <h3>Bronze Duke of Edinburgh</h3>
+          <p>The Duke of Edinburgh's International Award</p>
+        </div>
+        <div class="achievement-card glass-card-tilt">
+          <div class="achievement-trophy">🏆</div>
+          <h3>3rd in PSC Examination</h3>
+          <p>Stood 3rd in Kaliakair Upazila</p>
+        </div>
+        <div class="achievement-card glass-card-tilt">
+          <div class="achievement-trophy">⭐</div>
+          <h3>Golden GPA — SSC</h3>
+          <p>GPA 5.00/5.00 · 2019</p>
+        </div>
+        <div class="achievement-card glass-card-tilt">
+          <div class="achievement-trophy">⭐</div>
+          <h3>Golden GPA — HSC</h3>
+          <p>GPA 5.00/5.00 · 2021</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CHAPTER 07 — THE FUTURE ====================== -->
+  <section class="section" id="chapter-future">
+    <div class="section-inner">
+      <span class="chapter-label reveal">Chapter 07</span>
+      <h2 class="chapter-title reveal">The Future</h2>
+      <p class="chapter-subtitle reveal">The best chapters are yet to be written. Building impactful technology that
+        shapes a better tomorrow.</p>
+      <div class="future-pillars">
+        <div class="future-pillar">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+              <rect x="9" y="9" width="6" height="6"></rect>
+              <line x1="9" y1="1" x2="9" y2="4"></line>
+              <line x1="15" y1="1" x2="15" y2="4"></line>
+              <line x1="9" y1="20" x2="9" y2="23"></line>
+              <line x1="15" y1="20" x2="15" y2="23"></line>
+              <line x1="20" y1="9" x2="23" y2="9"></line>
+              <line x1="20" y1="14" x2="23" y2="14"></line>
+              <line x1="1" y1="9" x2="4" y2="9"></line>
+              <line x1="1" y1="14" x2="4" y2="14"></line>
+            </svg></div>
+          <h3>Artificial Intelligence</h3>
+          <p>Exploring AI, deep learning, and computer vision to solve real-world challenges.</p>
+        </div>
+        <div class="future-pillar">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg></div>
+          <h3>Mobile Development</h3>
+          <p>Crafting beautiful, performant mobile experiences with Flutter and modern architecture.</p>
+        </div>
+        <div class="future-pillar">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg></div>
+          <h3>Research & Innovation</h3>
+          <p>Contributing to academic research and pushing the boundaries of technology.</p>
+        </div>
+        <div class="future-pillar">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor"
+              stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+              </path>
+            </svg></div>
+          <h3>Impact at Scale</h3>
+          <p>Building technology that matters — solutions that improve lives.</p>
+        </div>
+      </div>
+      <div class="future-quote reveal">"This is not just a portfolio.<br><span>This is a story.</span>"</div>
+    </div>
+  </section>
+
+  <!-- ====================== CONTACT ====================== -->
+  <section class="section contact-section" id="contact-section">
+    <div class="section-inner" style="display:flex;justify-content:center;">
+      <div class="contact-card reveal-scale">
+        <h2>Let's Connect</h2>
+        <p style="color:var(--text-secondary);margin-bottom:var(--space-2xl);font-size:0.9rem;">Whether it's a project,
+          opportunity, or just a conversation — I'd love to hear from you.</p>
+        <div class="contact-info">
+          <a href="mailto:maruf1015hossain@gmail.com" class="contact-item">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg></div>
+            <div class="contact-text">
+              <div class="label">Email</div>
+              <div class="value">maruf1015hossain@gmail.com</div>
+            </div>
+          </a>
+          <a href="tel:+8801846853163" class="contact-item">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                </path>
+              </svg></div>
+            <div class="contact-text">
+              <div class="label">Phone</div>
+              <div class="value">+880 1846 853163</div>
+            </div>
+          </a>
+          <div class="contact-item">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg></div>
+            <div class="contact-text">
+              <div class="label">Location</div>
+              <div class="value">Ashulia, Savar, Dhaka, Bangladesh</div>
+            </div>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/marufhossain19" target="_blank" rel="noopener noreferrer"
+            class="social-link btn-magnetic" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+              height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/marufhossain19" target="_blank" rel="noopener noreferrer"
+            class="social-link btn-magnetic" title="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+              height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg></a>
+          <a href="https://www.facebook.com/marufhossain19" target="_blank" rel="noopener noreferrer"
+            class="social-link btn-magnetic" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+              height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+            </svg></a>
+          <a href="https://www.instagram.com/maruf_here_19" target="_blank" rel="noopener noreferrer"
+            class="social-link btn-magnetic" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+              height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+            </svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="footer">
+    <p>Designed & Built with <span class="heart">♥</span> by Md. Maruf Hossen · 2026</p>
+  </footer>
+
+  <!-- ====================== MODAL ====================== -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-content"><button class="modal-close" id="modalClose">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ====================== SCRIPTS ====================== -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
