@@ -547,80 +547,129 @@
   const pcArrowRight = document.getElementById('pcArrowRight');
 
   if (pcViewport && pcTrack) {
-    const slides = pcTrack.querySelectorAll('.pc-slide');
-    const total = slides.length;
-    const slideW = () => slides[0].offsetWidth;
+    const originalSlides = Array.from(pcTrack.querySelectorAll('.pc-slide'));
+    const originalTotal = originalSlides.length;
+    
+    // Duplicate for infinite scrolling (3 sets total)
+    for (let i = 0; i < 2; i++) {
+      originalSlides.forEach(s => {
+        pcTrack.appendChild(s.cloneNode(true));
+      });
+    }
+    
+    const allSlides = pcTrack.querySelectorAll('.pc-slide');
+    const total = allSlides.length;
+    const slideW = () => allSlides[0].offsetWidth;
 
     // State
-    let currentX = 0;       // Current interpolated position
-    let targetX = 0;        // Where we want to be
-    let velocity = 0;       // Drag velocity for momentum
+    let currentX = 0;
+    let velocity = 0;
     let activeIdx = 0;
     let isDragging = false;
     let dragStartX = 0;
     let dragStartScroll = 0;
     let lastDragX = 0;
     let lastDragTime = 0;
-    let autoTimer = null;
+    
+    // Auto-scroll & Snapping variables
+    let baseSpeed = -1.5; // Restored to previous speed
+    let targetSpeed = baseSpeed;
+    let currentSpeed = baseSpeed;
+    let snapTargetX = null;
+    let snapTimeout = null;
     let rafId = null;
 
-    // Center the first slide
     function getCenter() { return pcViewport.offsetWidth / 2 - slideW() / 2; }
-    function getTargetForIdx(idx) { return getCenter() - idx * slideW(); }
-
-    // Snap to index
-    function goTo(idx, immediate) {
-      activeIdx = ((idx % total) + total) % total;
-      targetX = getTargetForIdx(activeIdx);
-      if (immediate) currentX = targetX;
-      updateUI();
-      resetAuto();
-    }
 
     function updateUI() {
-      // Counter
-      if (pcCounter) pcCounter.textContent = `${String(activeIdx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
-      // Progress
-      if (pcProgressFill) pcProgressFill.style.width = `${((activeIdx + 1) / total) * 100}%`;
-      // Active class
-      slides.forEach((s, i) => s.classList.toggle('pc-active', i === activeIdx));
+      let displayIdx = (activeIdx % originalTotal) + 1;
+      if (pcCounter) pcCounter.textContent = `${String(displayIdx).padStart(2, '0')} / ${String(originalTotal).padStart(2, '0')}`;
+      if (pcProgressFill) pcProgressFill.style.width = `${(displayIdx / originalTotal) * 100}%`;
+      allSlides.forEach((s, i) => s.classList.toggle('pc-active', i === activeIdx));
     }
 
-    // ==================== SPRING ANIMATION LOOP ====================
+    function snapTo(offset) {
+      if (snapTimeout) clearTimeout(snapTimeout);
+      
+      // Calculate exact center position of the targeted image
+      snapTargetX = getCenter() - (activeIdx + offset) * slideW();
+      
+      // Stop momentum
+      targetSpeed = 0;
+      currentSpeed = 0;
+      velocity = 0;
+      
+      // Hold the image in dead-center for 3 seconds before resuming scroll
+      snapTimeout = setTimeout(() => {
+        snapTargetX = null;
+        if (!pcViewport.matches(':hover') && !isDragging) {
+          targetSpeed = baseSpeed;
+        }
+      }, 3000);
+    }
+
+    // ==================== ANIMATION LOOP ====================
     function animate() {
       rafId = requestAnimationFrame(animate);
 
       if (!isDragging) {
-        // Spring interpolation
-        const dx = targetX - currentX;
-        currentX += dx * 0.08; // Damping — lower = smoother spring
-        if (Math.abs(dx) < 0.3) currentX = targetX;
+        if (snapTargetX !== null) {
+          // Precision Snap Mode
+          currentX += (snapTargetX - currentX) * 0.12;
+        } else {
+          // Continuous Smooth Pan Mode
+          currentSpeed += (targetSpeed - currentSpeed) * 0.1;
+          currentX += currentSpeed + velocity;
+          velocity *= 0.92; // Friction for manual drags
+        }
       }
 
-      // Apply transform to track
+      // Infinite Wrap Logic
+      const setWidth = originalTotal * slideW();
+      if (currentX < -setWidth * 1.5) {
+        currentX += setWidth;
+        if (snapTargetX !== null) snapTargetX += setWidth;
+      } else if (currentX > -setWidth * 0.5) {
+        currentX -= setWidth;
+        if (snapTargetX !== null) snapTargetX -= setWidth;
+      }
+
       pcTrack.style.transform = `translateX(${currentX}px)`;
 
-      // 3D transforms per slide
       const vpCenter = pcViewport.offsetWidth / 2;
-      slides.forEach((slide, i) => {
+      let closestDist = Infinity;
+      let newActiveIdx = activeIdx;
+
+      // 3D Transforms and active state calculation
+      allSlides.forEach((slide, i) => {
         const slideCenter = currentX + i * slideW() + slideW() / 2;
         const dist = slideCenter - vpCenter;
-        const norm = dist / slideW(); // -1 to +1 for adjacent cards
+        const norm = dist / slideW();
 
-        // Scale: 1.0 center, 0.78 sides
+        if (Math.abs(dist) < closestDist) {
+          closestDist = Math.abs(dist);
+          newActiveIdx = i;
+        }
+
         const scale = Math.max(0.78, 1 - Math.abs(norm) * 0.22);
-        // RotateY: side cards get perspective tilt
         const rotateY = Math.max(-15, Math.min(15, -norm * 15));
-        // TranslateZ: push sides back
         const translateZ = -Math.abs(norm) * 60;
 
         slide.style.transform = `scale(${scale}) perspective(1200px) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
       });
+
+      if (newActiveIdx !== activeIdx) {
+        activeIdx = newActiveIdx;
+        updateUI();
+      }
     }
 
     // ==================== MOUSE DRAG ====================
     pcViewport.addEventListener('mousedown', (e) => {
       isDragging = true;
+      snapTargetX = null;
+      if (snapTimeout) clearTimeout(snapTimeout);
+      targetSpeed = 0; 
       dragStartX = e.clientX;
       dragStartScroll = currentX;
       lastDragX = e.clientX;
@@ -633,13 +682,9 @@
       if (!isDragging) return;
       const dx = e.clientX - dragStartX;
       currentX = dragStartScroll + dx;
-
-      // Track velocity
       const now = Date.now();
       const dt = now - lastDragTime;
-      if (dt > 0) {
-        velocity = (e.clientX - lastDragX) / dt * 16; // Normalize to ~60fps
-      }
+      if (dt > 0) velocity = (e.clientX - lastDragX) / dt * 16;
       lastDragX = e.clientX;
       lastDragTime = now;
     });
@@ -648,18 +693,19 @@
       if (!isDragging) return;
       isDragging = false;
       pcViewport.classList.remove('is-dragging');
-
-      // Apply momentum
-      currentX += velocity * 3;
-
-      // Snap to nearest
-      const nearest = Math.round(-((currentX - getCenter()) / slideW()));
-      goTo(nearest);
+      if (pcViewport.matches(':hover')) {
+        targetSpeed = 0;
+      } else {
+        targetSpeed = baseSpeed;
+      }
     });
 
     // ==================== TOUCH DRAG ====================
     pcViewport.addEventListener('touchstart', (e) => {
       isDragging = true;
+      snapTargetX = null;
+      if (snapTimeout) clearTimeout(snapTimeout);
+      targetSpeed = 0;
       dragStartX = e.touches[0].clientX;
       dragStartScroll = currentX;
       lastDragX = e.touches[0].clientX;
@@ -671,12 +717,9 @@
       if (!isDragging) return;
       const dx = e.touches[0].clientX - dragStartX;
       currentX = dragStartScroll + dx;
-
       const now = Date.now();
       const dt = now - lastDragTime;
-      if (dt > 0) {
-        velocity = (e.touches[0].clientX - lastDragX) / dt * 16;
-      }
+      if (dt > 0) velocity = (e.touches[0].clientX - lastDragX) / dt * 16;
       lastDragX = e.touches[0].clientX;
       lastDragTime = now;
     }, { passive: true });
@@ -684,45 +727,33 @@
     pcViewport.addEventListener('touchend', () => {
       if (!isDragging) return;
       isDragging = false;
-      currentX += velocity * 3;
-      const nearest = Math.round(-((currentX - getCenter()) / slideW()));
-      goTo(nearest);
+      if (!snapTargetX) targetSpeed = baseSpeed;
     });
 
-    // ==================== AUTO ADVANCE ====================
-    function startAuto() {
-      stopAuto();
-      autoTimer = setInterval(() => {
-        if (!isDragging) goTo(activeIdx + 1);
-      }, 4000);
-    }
-    function stopAuto() { if (autoTimer) clearInterval(autoTimer); }
-    function resetAuto() { startAuto(); }
-
-    // Pause on hover
-    pcViewport.addEventListener('mouseenter', stopAuto);
-    pcViewport.addEventListener('mouseleave', resetAuto);
+    // ==================== HOVER TO PAUSE ====================
+    pcViewport.addEventListener('mouseenter', () => { 
+      if(!isDragging && !snapTargetX) targetSpeed = 0; 
+    });
+    pcViewport.addEventListener('mouseleave', () => { 
+      if(!isDragging && !snapTargetX) targetSpeed = baseSpeed; 
+    });
 
     // ==================== ARROW BUTTONS ====================
-    if (pcArrowLeft) pcArrowLeft.addEventListener('click', () => goTo(activeIdx - 1));
-    if (pcArrowRight) pcArrowRight.addEventListener('click', () => goTo(activeIdx + 1));
+    if (pcArrowLeft) pcArrowLeft.addEventListener('click', () => snapTo(-1));
+    if (pcArrowRight) pcArrowRight.addEventListener('click', () => snapTo(1));
 
     // ==================== KEYBOARD ====================
     document.addEventListener('keydown', (e) => {
-      // Only respond if photography section is visible
       const rect = pcViewport.getBoundingClientRect();
       if (rect.top > window.innerHeight || rect.bottom < 0) return;
-      if (e.key === 'ArrowRight') goTo(activeIdx + 1);
-      if (e.key === 'ArrowLeft') goTo(activeIdx - 1);
+      if (e.key === 'ArrowRight') snapTo(1);
+      if (e.key === 'ArrowLeft') snapTo(-1);
     });
 
-    // ==================== RESIZE ====================
-    window.addEventListener('resize', () => { goTo(activeIdx, true); });
-
     // ==================== INIT ====================
-    goTo(0, true);
+    // Start at middle set to allow infinite scrolling in both directions
+    currentX = -originalTotal * slideW();
     animate();
-    startAuto();
   }
 
   /* ==========================================================
