@@ -42,6 +42,8 @@
     })();
   }
 
+
+
   /* ==========================================================
      4. NAVIGATION — Centered Pill
      ========================================================== */
@@ -231,6 +233,7 @@
     const clock = new THREE.Clock();
     function animateWave() {
       requestAnimationFrame(animateWave);
+      
       smoothMX += (targetMX - smoothMX) * 0.04;
       smoothMY += (targetMY - smoothMY) * 0.04;
       uniforms.uMouse.value.set(smoothMX, smoothMY);
@@ -512,6 +515,266 @@
       }
     );
   });
+
+  /* ==========================================================
+     17. COPY CONTACT INFO
+     ========================================================== */
+  const copyBtns = document.querySelectorAll('.copy-btn');
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const textToCopy = btn.getAttribute('data-copy');
+      if (textToCopy) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      }
+    });
+  });
+
+  /* ==========================================================
+     18. PREMIUM CINEMATIC CAROUSEL — Spring Physics Engine
+     ========================================================== */
+  const pcViewport = document.getElementById('pcViewport');
+  const pcTrack = document.getElementById('pcTrack');
+  const pcProgressFill = document.getElementById('pcProgressFill');
+  const pcCounter = document.getElementById('pcCounter');
+  const pcArrowLeft = document.getElementById('pcArrowLeft');
+  const pcArrowRight = document.getElementById('pcArrowRight');
+
+  if (pcViewport && pcTrack) {
+    const slides = pcTrack.querySelectorAll('.pc-slide');
+    const total = slides.length;
+    const slideW = () => slides[0].offsetWidth;
+
+    // State
+    let currentX = 0;       // Current interpolated position
+    let targetX = 0;        // Where we want to be
+    let velocity = 0;       // Drag velocity for momentum
+    let activeIdx = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartScroll = 0;
+    let lastDragX = 0;
+    let lastDragTime = 0;
+    let autoTimer = null;
+    let rafId = null;
+
+    // Center the first slide
+    function getCenter() { return pcViewport.offsetWidth / 2 - slideW() / 2; }
+    function getTargetForIdx(idx) { return getCenter() - idx * slideW(); }
+
+    // Snap to index
+    function goTo(idx, immediate) {
+      activeIdx = ((idx % total) + total) % total;
+      targetX = getTargetForIdx(activeIdx);
+      if (immediate) currentX = targetX;
+      updateUI();
+      resetAuto();
+    }
+
+    function updateUI() {
+      // Counter
+      if (pcCounter) pcCounter.textContent = `${String(activeIdx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+      // Progress
+      if (pcProgressFill) pcProgressFill.style.width = `${((activeIdx + 1) / total) * 100}%`;
+      // Active class
+      slides.forEach((s, i) => s.classList.toggle('pc-active', i === activeIdx));
+    }
+
+    // ==================== SPRING ANIMATION LOOP ====================
+    function animate() {
+      rafId = requestAnimationFrame(animate);
+
+      if (!isDragging) {
+        // Spring interpolation
+        const dx = targetX - currentX;
+        currentX += dx * 0.08; // Damping — lower = smoother spring
+        if (Math.abs(dx) < 0.3) currentX = targetX;
+      }
+
+      // Apply transform to track
+      pcTrack.style.transform = `translateX(${currentX}px)`;
+
+      // 3D transforms per slide
+      const vpCenter = pcViewport.offsetWidth / 2;
+      slides.forEach((slide, i) => {
+        const slideCenter = currentX + i * slideW() + slideW() / 2;
+        const dist = slideCenter - vpCenter;
+        const norm = dist / slideW(); // -1 to +1 for adjacent cards
+
+        // Scale: 1.0 center, 0.78 sides
+        const scale = Math.max(0.78, 1 - Math.abs(norm) * 0.22);
+        // RotateY: side cards get perspective tilt
+        const rotateY = Math.max(-15, Math.min(15, -norm * 15));
+        // TranslateZ: push sides back
+        const translateZ = -Math.abs(norm) * 60;
+
+        slide.style.transform = `scale(${scale}) perspective(1200px) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+      });
+    }
+
+    // ==================== MOUSE DRAG ====================
+    pcViewport.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartScroll = currentX;
+      lastDragX = e.clientX;
+      lastDragTime = Date.now();
+      velocity = 0;
+      pcViewport.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - dragStartX;
+      currentX = dragStartScroll + dx;
+
+      // Track velocity
+      const now = Date.now();
+      const dt = now - lastDragTime;
+      if (dt > 0) {
+        velocity = (e.clientX - lastDragX) / dt * 16; // Normalize to ~60fps
+      }
+      lastDragX = e.clientX;
+      lastDragTime = now;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      pcViewport.classList.remove('is-dragging');
+
+      // Apply momentum
+      currentX += velocity * 3;
+
+      // Snap to nearest
+      const nearest = Math.round(-((currentX - getCenter()) / slideW()));
+      goTo(nearest);
+    });
+
+    // ==================== TOUCH DRAG ====================
+    pcViewport.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      dragStartX = e.touches[0].clientX;
+      dragStartScroll = currentX;
+      lastDragX = e.touches[0].clientX;
+      lastDragTime = Date.now();
+      velocity = 0;
+    }, { passive: true });
+
+    pcViewport.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const dx = e.touches[0].clientX - dragStartX;
+      currentX = dragStartScroll + dx;
+
+      const now = Date.now();
+      const dt = now - lastDragTime;
+      if (dt > 0) {
+        velocity = (e.touches[0].clientX - lastDragX) / dt * 16;
+      }
+      lastDragX = e.touches[0].clientX;
+      lastDragTime = now;
+    }, { passive: true });
+
+    pcViewport.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      currentX += velocity * 3;
+      const nearest = Math.round(-((currentX - getCenter()) / slideW()));
+      goTo(nearest);
+    });
+
+    // ==================== AUTO ADVANCE ====================
+    function startAuto() {
+      stopAuto();
+      autoTimer = setInterval(() => {
+        if (!isDragging) goTo(activeIdx + 1);
+      }, 4000);
+    }
+    function stopAuto() { if (autoTimer) clearInterval(autoTimer); }
+    function resetAuto() { startAuto(); }
+
+    // Pause on hover
+    pcViewport.addEventListener('mouseenter', stopAuto);
+    pcViewport.addEventListener('mouseleave', resetAuto);
+
+    // ==================== ARROW BUTTONS ====================
+    if (pcArrowLeft) pcArrowLeft.addEventListener('click', () => goTo(activeIdx - 1));
+    if (pcArrowRight) pcArrowRight.addEventListener('click', () => goTo(activeIdx + 1));
+
+    // ==================== KEYBOARD ====================
+    document.addEventListener('keydown', (e) => {
+      // Only respond if photography section is visible
+      const rect = pcViewport.getBoundingClientRect();
+      if (rect.top > window.innerHeight || rect.bottom < 0) return;
+      if (e.key === 'ArrowRight') goTo(activeIdx + 1);
+      if (e.key === 'ArrowLeft') goTo(activeIdx - 1);
+    });
+
+    // ==================== RESIZE ====================
+    window.addEventListener('resize', () => { goTo(activeIdx, true); });
+
+    // ==================== INIT ====================
+    goTo(0, true);
+    animate();
+    startAuto();
+  }
+
+  /* ==========================================================
+     19. DYNAMIC TECH STACK MARQUEE
+     ========================================================== */
+  const techData = [
+    { name: "Flutter", icon: "assets/flutter.svg" },
+    { name: "Dart", icon: "assets/dart.svg" },
+    { name: "Python", icon: "assets/python.svg" },
+    { name: "Java", icon: "assets/java.svg" },
+    { name: "HTML", icon: "assets/html.svg" },
+    { name: "CSS", icon: "assets/css-alt.svg" },
+    { name: "MySQL", icon: "assets/mysql.svg" },
+    { name: "Git", icon: "assets/github.svg" },
+    { name: "Supabase", icon: "assets/supabase.svg" },
+    { name: "Node JS", icon: "assets/node-js.svg" },
+    { name: "C", icon: "assets/c.svg" },
+    { name: "Word", icon: "assets/microsoft-word.svg" },
+    { name: "Excel", icon: "assets/excel.svg" },
+    { name: "PowerPoint", icon: "assets/powerpoint.svg" }
+  ];
+
+  const trackTop = document.getElementById('techTrackTop');
+  const trackBottom = document.getElementById('techTrackBottom');
+
+  if (trackTop && trackBottom) {
+    // Split into top and bottom rows
+    const half = Math.ceil(techData.length / 2);
+    const topRowData = techData.slice(0, half);
+    const bottomRowData = techData.slice(half);
+
+    // Helper to generate cards
+    const generateCards = (dataArray, trackElement) => {
+      // Duplicate 3 times to ensure screen is filled for smooth marquee loop
+      const loopCount = 3;
+      let html = '';
+      for (let i = 0; i < loopCount; i++) {
+        dataArray.forEach(tech => {
+          html += `
+            <div class="tech-card">
+              <span class="tech-icon"><img src="${tech.icon}" alt="${tech.name}" loading="lazy"></span>
+              <span class="tech-label">${tech.name}</span>
+            </div>
+          `;
+        });
+      }
+      trackElement.innerHTML = html;
+    };
+
+    generateCards(topRowData, trackTop);
+    generateCards(bottomRowData, trackBottom);
+  }
 
   /* ==========================================================
      DONE
